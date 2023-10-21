@@ -1,9 +1,10 @@
 ﻿using TaskManagement.Core.Entities;
 using TaskManagement.Core.Enums;
+using TaskManagement.Infrastructure;
 
-namespace TaskManagement.Infrastructure.Data
+namespace TaskManagement.API.Helpers
 {
-    public static class MockData
+    public static class DbSeederHelper
     {
         private const string UserId1 = "z3f7d6c0-ff7a-4b5a-9b9b-1a2b3c4d5e6f";
         private const string UserId2 = "x3f7d6c0-ff7a-4b5a-3b9b-1a2b3c4d5e6f";
@@ -19,6 +20,12 @@ namespace TaskManagement.Infrastructure.Data
 
         private static readonly DateTime CreatedDate = new DateTime(2023, 10, 21);
 
+        public static void SeedDb(ApplicationDbContext applicationDbContext)
+        {
+            applicationDbContext.Users.AddRange(GetMockUsers());
+            applicationDbContext.Tasks.AddRange(GetMockTasks());
+            applicationDbContext.SaveChanges();
+        }
         public static List<UserEntity> GetMockUsers()
         {
             return new List<UserEntity>

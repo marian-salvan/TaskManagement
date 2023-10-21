@@ -1,9 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+﻿using Microsoft.AspNetCore.OData;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.OData.ModelBuilder;
 using TaskManagement.API.Integrations;
-using TaskManagement.API.Services;
+using TaskManagement.Core.Entities;
 using TaskManagement.Core.Interfaces;
 using TaskManagement.Infrastructure.Repositories;
-using UserManagement.API.Services;
 
 namespace TaskManagement.API.Extensions
 {
@@ -15,16 +16,21 @@ namespace TaskManagement.API.Extensions
             services.TryAddScoped<ITasksRepository, TasksRepository>();
         }
 
-        //business logic services
-        public static void AddServices(this IServiceCollection services)
-        {
-            services.TryAddScoped<IUsersService, UsersService>();
-            services.TryAddScoped<ITasksService, TasksService>();
-        }
-
         public static void AddExternalServices(this IServiceCollection services)
         {
             services.TryAddScoped<ITaskSummaryGenerator, TaskSummaryGenerator>();
+        }
+
+        public static void AddOdataConfiguration(this IServiceCollection services)
+        {
+            var modelBuilder = new ODataConventionModelBuilder();
+            modelBuilder.EntitySet<UserEntity>("Users");
+            modelBuilder.EntitySet<TaskEntity>("Tasks");
+
+            services.AddControllers().AddOData(
+                options => options.EnableQueryFeatures(null).AddRouteComponents(
+                    routePrefix: "odata",
+                    model: modelBuilder.GetEdmModel()));
         }
     }
 }

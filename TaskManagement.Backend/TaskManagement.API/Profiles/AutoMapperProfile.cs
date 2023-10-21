@@ -16,10 +16,6 @@ namespace TaskManagement.API.Profiles
             CreateMap<CreateUpdateTaskRequest, TaskEntity>()
                 .ForMember(destination => destination.Id, opt => opt.MapFrom(_ => Guid.NewGuid().ToString()))
                 .ForMember(destination => destination.CreatedDate, opt => opt.MapFrom(_ => DateTime.UtcNow));
-
-            CreateMap<UserEntity, GetUserResponse>();
-
-            CreateMap<TaskEntity, GetTaskResponse>();
         }
     }
 }

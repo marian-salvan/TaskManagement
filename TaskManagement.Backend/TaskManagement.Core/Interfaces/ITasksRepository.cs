@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TaskManagement.Core.Entities;
+﻿using TaskManagement.Core.Entities;
 
 namespace TaskManagement.Core.Interfaces
 {
@@ -13,5 +8,6 @@ namespace TaskManagement.Core.Interfaces
         Task<bool> CreateTask(TaskEntity taskEntity);
         Task<bool> UpdateTask(TaskEntity taskEntity);
         Task<bool> DeleteTask(TaskEntity taskEntity);
+        IQueryable<TaskEntity> GetAllTasks();
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TaskManagement.Core.Entities;
 using TaskManagement.Core.Interfaces;
-using TaskManagement.Infrastructure.Data;
 
 namespace TaskManagement.Infrastructure.Repositories
 {
@@ -12,8 +11,6 @@ namespace TaskManagement.Infrastructure.Repositories
         public UsersRepository(ApplicationDbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
-
-            SeedData();
         }
 
         public async Task<UserEntity> GetUser(string userId)
@@ -40,14 +37,9 @@ namespace TaskManagement.Infrastructure.Repositories
             return await _context.SaveChangesAsync() > 0;
         }
 
-        private void SeedData()
+        public IQueryable<UserEntity> GetAllUsers()
         {
-            //if the there are no users, seed the database with mock data
-            if (_context.Users.Count() == 0)
-            {
-                _context.AddRange(MockData.GetMockUsers());
-                _context.SaveChanges();
-            }
+            return _context.Users.AsQueryable();
         }
     }
 }

@@ -1,7 +1,9 @@
-using Microsoft.AspNetCore.OData;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using TaskManagement.API.Extensions;
+using TaskManagement.API.Helpers;
 using TaskManagement.API.Profiles;
+using TaskManagement.API.Validators;
 using TaskManagement.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,10 +16,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddRepositories();
-builder.Services.AddServices();
 builder.Services.AddExternalServices();
 
-builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+builder.Services.AddOdataConfiguration();
 
 //http client used by task summary service
 builder.Services.AddHttpClient("CatFact", httpClient =>
@@ -30,6 +31,9 @@ builder.Services.AddHttpClient("CatFact", httpClient =>
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseInMemoryDatabase("TaskManagement"));
 
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+builder.Services.AddValidatorsFromAssemblyContaining<CreateUpdateUserRequestValidator>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -41,11 +45,18 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-//TODO: configure application security (authentication/authorization) for production
-app.UseAuthorization();
+app.UseRouting();
 
-app.MapControllers();
+app.UseEndpoints(endpoints => endpoints.MapControllers());
 
-app.UseGlboalExecption();
+app.UseGlboalExeception();
+
+// Seed database
+using (var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
+{
+    var db = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    DbSeederHelper.SeedDb(db);
+}
 
 app.Run();
+
