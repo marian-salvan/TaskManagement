@@ -47,6 +47,12 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+app.UseCors(options => 
+    options.AllowAnyMethod() 
+       .AllowAnyHeader()
+       .WithOrigins("http://localhost:4200")
+   ); 
+
 app.UseEndpoints(endpoints => endpoints.MapControllers());
 
 app.UseGlboalExeception();
