@@ -50,7 +50,7 @@ namespace TaskManagement.API.Controllers
         }
 
 
-        [HttpGet("odata/Tasks/Summary/{key}")]
+        [HttpGet("odata/Tasks/{key}/Summary")]
         public async Task<IActionResult> GetSummary([FromRoute] string key)
         {
             var task = await _tasksRepository.GetTask(key);
