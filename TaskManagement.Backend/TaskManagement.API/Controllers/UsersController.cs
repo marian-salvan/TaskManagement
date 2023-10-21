@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
 using TaskManagement.Core.Entities;
 using TaskManagement.Core.Interfaces;
@@ -38,6 +39,12 @@ namespace TaskManagement.API.Controllers
             }
 
             return Ok(user);
+        }
+
+        [EnableQuery]
+        public IQueryable<UserEntity> Get()
+        {
+            return _usersRepository.GetAllUsers();
         }
 
         public async Task<IActionResult> Post([FromBody] CreateUpdateUserRequest createRequest)

@@ -8,5 +8,6 @@ namespace TaskManagement.Core.Interfaces
         Task<bool> CreateUser(UserEntity userEntity);
         Task<bool> UpdateUser(UserEntity userEntity);
         Task<bool> DeleteUser(UserEntity userEntity);
+        IQueryable<UserEntity> GetAllUsers();
     }
 }
