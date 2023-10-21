@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  uiy:
+    build: TaskManagement.UI
+    ports:
+      - "4200:4200"
+  api:
+    build: 
+      context: TaskManagement.Backend
+      dockerfile: TaskManagement.API/Dockerfile
+    ports:
+      - "5000:80"
+      - "5001:443"
+    environment:
+      - "ASPNETCORE_ENVIRONMENT=Development"

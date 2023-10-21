@@ -7,10 +7,13 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["TaskManagement.API.csproj", "."]
-RUN dotnet restore "./TaskManagement.API.csproj"
+COPY ["TaskManagement.API/TaskManagement.API.csproj", "TaskManagement.API/"]
+COPY ["TaskManagement.Infrastructure/TaskManagement.Infrastructure.csproj", "TaskManagement.Infrastructure/"]
+COPY ["TaskManagement.Core/TaskManagement.Core.csproj", "TaskManagement.Core/"]
+
+RUN dotnet restore "TaskManagement.API/TaskManagement.API.csproj"
 COPY . .
-WORKDIR "/src/."
+WORKDIR "/src/TaskManagement.API"
 RUN dotnet build "TaskManagement.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
