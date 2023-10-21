@@ -1,4 +1,4 @@
-namespace TaskMagement.API
+namespace TaskManagement.API
 {
     public class WeatherForecast
     {

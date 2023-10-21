@@ -7,16 +7,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["TaskMagement.API.csproj", "."]
-RUN dotnet restore "./TaskMagement.API.csproj"
+COPY ["TaskManagement.API.csproj", "."]
+RUN dotnet restore "./TaskManagement.API.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "TaskMagement.API.csproj" -c Release -o /app/build
+RUN dotnet build "TaskManagement.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "TaskMagement.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "TaskManagement.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "TaskMagement.API.dll"]
+ENTRYPOINT ["dotnet", "TaskManagement.API.dll"]

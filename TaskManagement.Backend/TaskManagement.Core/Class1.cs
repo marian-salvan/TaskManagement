@@ -1,4 +1,4 @@
-﻿namespace TaskMagement.Core
+﻿namespace TaskManagement.Core
 {
     public class Class1
     {
