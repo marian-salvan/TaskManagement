@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+using TaskManagement.API.Integrations;
 using TaskManagement.API.Services;
 using TaskManagement.Core.Interfaces;
 using TaskManagement.Infrastructure.Repositories;
+using UserManagement.API.Services;
 
 namespace TaskManagement.API.Extensions
 {
@@ -18,6 +20,11 @@ namespace TaskManagement.API.Extensions
         {
             services.TryAddScoped<IUsersService, UsersService>();
             services.TryAddScoped<ITasksService, TasksService>();
+        }
+
+        public static void AddExternalServices(this IServiceCollection services)
+        {
+            services.TryAddScoped<ITaskSummaryGenerator, TaskSummaryGenerator>();
         }
     }
 }

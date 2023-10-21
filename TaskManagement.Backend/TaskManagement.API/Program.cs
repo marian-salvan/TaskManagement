@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using TaskManagement.API.Extensions;
+using TaskManagement.API.Profiles;
 using TaskManagement.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +15,15 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddRepositories();
 builder.Services.AddServices();
+builder.Services.AddExternalServices();
+
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+
+//http client used by task summary service
+builder.Services.AddHttpClient("CatFact", httpClient =>
+{
+    httpClient.BaseAddress = new Uri("https://catfact.ninja/");
+});
 
 //using an in-memory database for testing
 //TODO use a real database for production

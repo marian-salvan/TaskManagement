@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
 using TaskManagement.Core.Interfaces;
 
 namespace TaskManagement.API.Controllers
 {
+    //TODO: add security to the controller (authorize)
     [ApiController]
     [Route("[controller]")]
-    public class UsersController : ControllerBase
+    public class UsersController : ODataController
     {
         private readonly ILogger<UsersController> _logger;
         private readonly IUsersService _usersService;
