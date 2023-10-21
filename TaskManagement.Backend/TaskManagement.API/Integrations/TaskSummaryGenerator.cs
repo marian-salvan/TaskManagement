@@ -6,7 +6,7 @@ using TaskManagement.Core.Responses;
 namespace TaskManagement.API.Integrations
 {
     //external integrations could be kept in different class library
-    //for the sake of simplicity, we are keeping it in the same project
+    //for the sake of simplicity, we are keeping them in the same project
     public class TaskSummaryGenerator : ITaskSummaryGenerator
     {
         private readonly IHttpClientFactory _httpClientFactory;

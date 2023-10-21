@@ -11,7 +11,9 @@ namespace TaskManagement.API.Controllers
     //TODO: add security to the controller (authorize)
     public class UsersController : ODataController
     {
+        //TODO: logs
         private readonly ILogger<UsersController> _logger;
+        //if the application was bigger, we would have a service layer
         private readonly IUsersRepository _usersRepository;
         private readonly IMapper _mapper;
         private readonly IValidator<CreateUpdateUserRequest> _requestValidator;
