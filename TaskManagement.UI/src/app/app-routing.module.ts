@@ -12,7 +12,7 @@ const routes: Routes = [
     path: 'tasks',
     component: TasksComponent,
   },
-  { path: '',   redirectTo: '/users', pathMatch: 'full' },
+  { path: '', redirectTo: '/users', pathMatch: 'full' },
 ];
 
 @NgModule({

@@ -19,7 +19,6 @@ export class UsersComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription.add(
       this.taskManagementService.getAllUsers().subscribe((data: OdataContext<UserModel[]>) => {
-        debugger;
         this.users = data.value;
       })
     );

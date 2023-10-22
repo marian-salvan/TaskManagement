@@ -1,1 +1,31 @@
-<p>tasks works!</p>
+<div *ngIf="pageTasks.length === 0">
+    There are no tasks available.
+</div>
+
+<div *ngIf="pageTasks.length > 0">
+    <div class="cards-container">
+        <div *ngFor="let task of pageTasks; let i = index"  class="card">
+            <p-card header={{task.Name}} [style]="{ width: '300px' }">
+                <ng-template pTemplate="header">
+                    <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+                </ng-template>
+                <p>
+                    {{task.Description}}
+                </p>
+                <ng-template pTemplate="footer">
+                    <p-button label="Get summary" (onClick)="getSummary(task)" icon="pi pi-check"></p-button>
+                </ng-template>
+            </p-card>
+        </div>
+    </div>
+
+    <p-paginator (onPageChange)="onPageChange($event)" [first]="currentPage" [rows]="pageSize" [totalRecords]="totalRecords" [rowsPerPageOptions]="[5, 10, 20]"></p-paginator>
+</div>
+
+<div> 
+    <p-dialog header="Task summary" [(visible)]="visible" [style]="{width: '50vw'}">
+        <p>
+           {{taskSummary?.summary}}
+        </p>
+    </p-dialog>
+</div>

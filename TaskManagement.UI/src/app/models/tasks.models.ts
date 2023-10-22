@@ -1,10 +1,10 @@
 export interface TaskModel {
-    id: string;
-    name: string;
-    description: string;
-    status: string;
-    userId: string;
-    createdDate: Date;
+    Id: string;
+    Name: string;
+    Description: string;
+    Status: string;
+    UserId: string;
+    CreatedDate: Date;
 }
 
 export interface TaskSummary {

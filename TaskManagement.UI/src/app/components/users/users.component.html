@@ -4,6 +4,7 @@
             <th>No</th>
             <th>Name</th>
             <th>Email</th>
+            <th>See tasks</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-user  let-rowIndex="rowIndex">
@@ -11,6 +12,11 @@
             <td>{{ rowIndex }}</td>
             <td>{{ user.Name }}</td>
             <td>{{ user.Email }}</td>
+            <td>
+                <a [routerLink]="['/tasks' ]" [queryParams]="{userId: user.Id}">
+                    See tasks
+                </a>
+            </td>
         </tr>
     </ng-template>
 </p-table>

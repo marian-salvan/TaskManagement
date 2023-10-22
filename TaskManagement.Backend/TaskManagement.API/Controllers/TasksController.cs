@@ -3,6 +3,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
+using Microsoft.EntityFrameworkCore;
 using TaskManagement.Core.Entities;
 using TaskManagement.Core.Interfaces;
 using TaskManagement.Core.Requests;
@@ -49,6 +50,13 @@ namespace TaskManagement.API.Controllers
             return _tasksRepository.GetAllTasks();
         }
 
+        [HttpGet("odata/Tasks/{userId}/TotalUserTasks")]
+        public async Task<IActionResult> GetTotalUserTasks([FromRoute] string userId)
+        {
+            var count = await _tasksRepository.GetAllTasks().Where(t => t.UserId == userId).CountAsync();
+            return Ok(count);
+        }
+
         [HttpGet("odata/Tasks/{key}/Summary")]
         public async Task<IActionResult> GetSummary([FromRoute] string key)
         {
@@ -61,7 +69,7 @@ namespace TaskManagement.API.Controllers
 
             var summary = await _taskSummaryGenerator.GetTaskDescription();
 
-            return Ok(new TaskWithSummaryResponse
+            return Ok(new TaskSummaryResponse
             {
                 TaskId = task.Id,
                 Summary = summary

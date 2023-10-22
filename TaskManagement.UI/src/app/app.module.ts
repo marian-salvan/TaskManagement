@@ -8,6 +8,11 @@ import { TasksComponent } from './components/tasks/tasks.component';
 import { UsersComponent } from './components/users/users.component';
 import { TableModule } from 'primeng/table';
 import { HttpClientModule } from '@angular/common/http';
+import { MenubarModule } from 'primeng/menubar';
+import { PaginatorModule } from 'primeng/paginator';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -20,7 +25,12 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    TableModule
+    TableModule,
+    MenubarModule,
+    PaginatorModule,
+    CardModule,
+    ButtonModule,
+    DialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
