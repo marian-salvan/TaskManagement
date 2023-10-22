@@ -5,10 +5,11 @@
 Assure that you have Docker installed.
 
 ## How to run?
-1. Run `docker compose up` in this folder
-2. Wait for the build to be completed
-3. You can access the application at the following url: http://localhost:4200/
-4. You can access the API swagger at the folliwing url: http://localhost:5000/swagger
+1. Clone this repository
+2. Run `docker compose up` in this folder
+3. Wait for the build to be completed
+4. You can access the application at the following url: http://localhost:4200/
+5. You can access the API swagger at the folliwing url: http://localhost:5000/swagger
 
 ## Leftovers
 1. Tests for both backend and frontend
