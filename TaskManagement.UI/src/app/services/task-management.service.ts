@@ -13,22 +13,22 @@ export class TaskManagementService {
   constructor(private _httpClient: HttpClient) { }
 
   getAllUsers(): Observable<OdataContext<UserModel[]>> {
-    return this._httpClient.get<OdataContext<UserModel[]>>(`${BaseUrls.LocalUrl}${Paths.Users}`);
+    return this._httpClient.get<OdataContext<UserModel[]>>(`${BaseUrls.BaseUrl}${Paths.Users}`);
   }
 
   getFilteredTasks(filter: string): Observable<OdataContext<TaskModel[]>> {
-    return this._httpClient.get<OdataContext<TaskModel[]>>(`${BaseUrls.LocalUrl}${Paths.Tasks}${filter}`);
+    return this._httpClient.get<OdataContext<TaskModel[]>>(`${BaseUrls.BaseUrl}${Paths.Tasks}${filter}`);
   }
 
   getTasksCount(): Observable<number> {
-    return this._httpClient.get<number>(`${BaseUrls.LocalUrl}${Paths.Tasks}/\$count`);
+    return this._httpClient.get<number>(`${BaseUrls.BaseUrl}${Paths.Tasks}/\$count`);
   }
 
   getUserTasksCount(userId: string): Observable<number> {
-    return this._httpClient.get<number>(`${BaseUrls.LocalUrl}${Paths.Tasks}/${userId}/TotalUserTasks`);
+    return this._httpClient.get<number>(`${BaseUrls.BaseUrl}${Paths.Tasks}/${userId}/TotalUserTasks`);
   }
 
   getTaskSummary(taskId: string): Observable<TaskSummary> {
-    return this._httpClient.get<TaskSummary>(`${BaseUrls.LocalUrl}${Paths.Tasks}/${taskId}/Summary`);
+    return this._httpClient.get<TaskSummary>(`${BaseUrls.BaseUrl}${Paths.Tasks}/${taskId}/Summary`);
   }
 }
